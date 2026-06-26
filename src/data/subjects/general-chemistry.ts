@@ -63,6 +63,25 @@ export const generalChemistry: Subject = {
             ],
           },
         },
+        {
+          id: "gc-bond-vsepr",
+          name: "VSEPR & molecular geometry",
+          summary: {
+            highYield: "Predict shape and polarity from electron domains — a fast, reliable point source.",
+            body: [
+              { type: "p", text: "VSEPR theory says electron domains (bonds + lone pairs) arrange to minimize repulsion. Count the domains around the central atom to get the geometry." },
+              { type: "list", items: [
+                "2 domains → linear (180°).",
+                "3 domains → trigonal planar (120°).",
+                "4 domains → tetrahedral (109.5°).",
+                "5 domains → trigonal bipyramidal (90°/120°).",
+                "6 domains → octahedral (90°).",
+              ] },
+              { type: "key", term: "Lone pairs matter", def: "Lone pairs repel more than bonding pairs, compressing angles and changing the shape (e.g., 4 domains with 1 lone pair → trigonal pyramidal like NH₃; 2 lone pairs → bent like H₂O)." },
+              { type: "tip", text: "Polarity = geometry + bond dipoles. Symmetric shapes (linear CO₂, tetrahedral CCl₄) cancel dipoles → nonpolar; asymmetry (bent H₂O) → polar." },
+            ],
+          },
+        },
       ],
     },
     {

@@ -193,9 +193,60 @@ export const biology: Subject = {
             ],
           },
         },
-        { id: "bio-phys-renal", name: "Renal system" },
-        { id: "bio-phys-immune", name: "Immune system" },
-        { id: "bio-phys-digestive", name: "Digestive system" },
+        {
+          id: "bio-phys-renal",
+          name: "Renal system",
+          summary: {
+            highYield: "Know the nephron in order and what each segment does — and the hormones that tune it.",
+            body: [
+              { type: "p", text: "The nephron is the kidney's functional unit. Blood is filtered at the glomerulus into Bowman's capsule, then the filtrate is selectively reabsorbed and secreted along the tubule before becoming urine." },
+              { type: "h", text: "Nephron segments in order" },
+              { type: "list", items: [
+                "Glomerulus / Bowman's capsule — filtration (blood pressure pushes fluid across).",
+                "Proximal convoluted tubule — bulk reabsorption of glucose, amino acids, ions, and water.",
+                "Loop of Henle — descending limb reabsorbs water; ascending limb reabsorbs salt (builds the medullary gradient).",
+                "Distal convoluted tubule — fine-tuned reabsorption/secretion under hormonal control.",
+                "Collecting duct — final water reabsorption set by ADH.",
+              ] },
+              { type: "key", term: "Two key hormones", def: "Aldosterone → reabsorb Na⁺ (water follows), excrete K⁺, raising blood pressure. ADH (vasopressin) → insert aquaporins in the collecting duct to reabsorb water and concentrate urine." },
+              { type: "tip", text: "The countercurrent multiplier in the loop of Henle is what lets the kidney concentrate urine. The juxtaglomerular apparatus releases renin to start the RAAS cascade when BP drops." },
+            ],
+          },
+        },
+        {
+          id: "bio-phys-immune",
+          name: "Immune system",
+          summary: {
+            highYield: "Innate vs adaptive, and B (humoral) vs T (cell-mediated) — the dividing lines are tested constantly.",
+            body: [
+              { type: "p", text: "Immunity has two arms. Innate immunity is fast and nonspecific; adaptive immunity is slower, specific, and remembers." },
+              { type: "list", items: [
+                "Innate — physical barriers (skin), phagocytes (macrophages, neutrophils), complement, inflammation, natural killer cells. No memory.",
+                "Adaptive — lymphocytes that target specific antigens and form memory.",
+              ] },
+              { type: "key", term: "B cells vs T cells", def: "B cells → humoral immunity: make antibodies (plasma cells) against extracellular pathogens. T cells → cell-mediated: helper T (CD4) coordinate the response; cytotoxic T (CD8) kill infected cells." },
+              { type: "tip", text: "Memory cells make the secondary response faster and stronger — the basis of vaccination. Active immunity = you make the antibodies (infection/vaccine); passive = you receive them (placenta, breast milk, antiserum)." },
+            ],
+          },
+        },
+        {
+          id: "bio-phys-digestive",
+          name: "Digestive system",
+          summary: {
+            highYield: "Match each enzyme/secretion to its organ and the macromolecule it breaks down.",
+            body: [
+              { type: "p", text: "Digestion is mechanical and chemical, moving food through the GI tract while accessory organs (liver, gallbladder, pancreas) add secretions." },
+              { type: "list", items: [
+                "Mouth — salivary amylase starts carbohydrate digestion.",
+                "Stomach — HCl + pepsin (from pepsinogen) begin protein digestion at low pH.",
+                "Small intestine — site of MOST digestion and absorption; pancreatic enzymes (amylase, lipase, trypsin) finish the job at neutral pH.",
+                "Large intestine — absorbs water and electrolytes; houses gut flora.",
+              ] },
+              { type: "key", term: "Accessory organs", def: "Liver makes bile (emulsifies fat); gallbladder stores it; pancreas supplies digestive enzymes and bicarbonate to neutralize stomach acid." },
+              { type: "tip", text: "Villi and microvilli enormously expand the small intestine's surface area for absorption. Fats enter lacteals (lymph); other nutrients enter capillaries → hepatic portal vein → liver." },
+            ],
+          },
+        },
       ],
     },
   ],

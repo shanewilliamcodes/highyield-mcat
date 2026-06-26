@@ -41,6 +41,18 @@ export const physics: Subject = {
             ],
           },
         },
+        {
+          id: "ph-mech-torque",
+          name: "Torque & rotational equilibrium",
+          summary: {
+            highYield: "Set net torque to zero for 'balance/lever' problems — a classic MCAT setup.",
+            body: [
+              { type: "p", text: "Torque (τ = r·F·sinθ) is the rotational analog of force. It depends on the force, the distance from the pivot (lever arm), and the angle between them." },
+              { type: "key", term: "Rotational equilibrium", def: "An object is in equilibrium when net force = 0 AND net torque = 0. For a balanced beam, clockwise torques equal counterclockwise torques about any pivot." },
+              { type: "tip", text: "Pick the pivot at an unknown force to make its torque zero and simplify the algebra. Maximum torque occurs when force is applied perpendicular (θ = 90°) to the lever arm." },
+            ],
+          },
+        },
       ],
     },
     {

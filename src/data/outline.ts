@@ -87,6 +87,8 @@ export const OUTLINE: OutlineSubject[] = [
       { id: "psy-sensation", name: "Sensation & Perception" },
       { id: "psy-learning", name: "Learning & Memory" },
       { id: "psy-cognition", name: "Cognition & Consciousness" },
+      { id: "psy-development", name: "Development & Motivation" },
+      { id: "psy-disorders", name: "Psychological Disorders" },
     ],
   },
   {

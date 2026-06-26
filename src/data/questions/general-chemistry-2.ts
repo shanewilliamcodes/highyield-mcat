@@ -1,0 +1,281 @@
+import type { Question } from "@/lib/types";
+
+// General Chemistry — batch 2. Atomic structure, bonding, thermo, kinetics,
+// equilibrium, acids/bases, electrochemistry, plus gases and solutions.
+export const generalChemistryQuestions2: Question[] = [
+  {
+    id: "gc-q16",
+    subject: "general-chemistry",
+    topicId: "gc-atomic",
+    subtopicId: "gc-atom-trends",
+    statement: "Ionization energy generally decreases as you move down a group.",
+    answer: true,
+    explanation:
+      "True. Down a group, valence electrons are farther from the nucleus and better shielded, so they're easier to remove — ionization energy decreases.",
+    difficulty: 1,
+  },
+  {
+    id: "gc-q17",
+    subject: "general-chemistry",
+    topicId: "gc-atomic",
+    subtopicId: "gc-atom-trends",
+    statement: "A cation is always larger than its parent neutral atom.",
+    answer: false,
+    explanation:
+      "A cation is SMALLER than its parent atom — it has lost electrons (often an entire outer shell) and the remaining electrons feel greater effective nuclear charge. Anions are larger than their parent atoms.",
+    difficulty: 2,
+  },
+  {
+    id: "gc-q18",
+    subject: "general-chemistry",
+    topicId: "gc-atomic",
+    subtopicId: "gc-atom-quantum",
+    statement: "The Pauli exclusion principle states that no two electrons in an atom can have the same four quantum numbers.",
+    answer: true,
+    explanation:
+      "True. Each electron has a unique set of quantum numbers (n, ℓ, mℓ, ms); a single orbital holds at most two electrons, and they must have opposite spins.",
+    difficulty: 1,
+  },
+  {
+    id: "gc-q19",
+    subject: "general-chemistry",
+    topicId: "gc-bonding",
+    subtopicId: "gc-bond-imf",
+    statement: "A molecule can be nonpolar overall even if it contains polar bonds.",
+    answer: true,
+    explanation:
+      "True. If symmetric geometry makes the bond dipoles cancel (e.g., CO₂, CCl₄), the molecule is nonpolar despite having polar bonds.",
+    difficulty: 2,
+  },
+  {
+    id: "gc-q20",
+    subject: "general-chemistry",
+    topicId: "gc-bonding",
+    subtopicId: "gc-bond-imf",
+    statement: "Larger molecules with more electrons generally have stronger London dispersion forces.",
+    answer: true,
+    explanation:
+      "True. More electrons and greater surface area make a molecule more polarizable, strengthening temporary dipoles (London dispersion) and raising boiling points within a series.",
+    difficulty: 1,
+  },
+  {
+    id: "gc-q21",
+    subject: "general-chemistry",
+    topicId: "gc-thermo",
+    subtopicId: "gc-thermo-gibbs",
+    statement: "Entropy generally increases when a substance goes from solid to liquid to gas.",
+    answer: true,
+    explanation:
+      "True. Gases have far more positional and motional freedom than liquids or solids, so entropy increases in the order solid < liquid < gas.",
+    difficulty: 1,
+  },
+  {
+    id: "gc-q22",
+    subject: "general-chemistry",
+    topicId: "gc-thermo",
+    subtopicId: "gc-thermo-gibbs",
+    statement: "An endothermic reaction absorbs heat and has a positive ΔH.",
+    answer: true,
+    explanation:
+      "True. Endothermic = heat absorbed, ΔH > 0 (products higher in enthalpy). Exothermic releases heat with ΔH < 0.",
+    difficulty: 1,
+  },
+  {
+    id: "gc-q23",
+    subject: "general-chemistry",
+    topicId: "gc-thermo",
+    subtopicId: "gc-thermo-gibbs",
+    statement: "A state function depends on the path taken between the initial and final states.",
+    answer: false,
+    explanation:
+      "State functions (enthalpy, entropy, Gibbs energy, internal energy) depend only on the initial and final states, NOT the path. Work and heat are path-dependent.",
+    difficulty: 2,
+  },
+  {
+    id: "gc-q24",
+    subject: "general-chemistry",
+    topicId: "gc-kinetics-eq",
+    subtopicId: "gc-kin-rate",
+    statement: "Increasing temperature speeds up most reactions by giving more molecules enough energy to react.",
+    answer: true,
+    explanation:
+      "True. Higher temperature broadens the Maxwell–Boltzmann distribution, so a larger fraction of collisions exceeds the activation energy, increasing the rate.",
+    difficulty: 1,
+  },
+  {
+    id: "gc-q25",
+    subject: "general-chemistry",
+    topicId: "gc-kinetics-eq",
+    subtopicId: "gc-kin-rate",
+    statement: "The rate-determining step of a reaction is the fastest elementary step.",
+    answer: false,
+    explanation:
+      "The rate-determining step is the SLOWEST step — it bottlenecks the overall rate, the way the slowest stage limits an assembly line.",
+    difficulty: 1,
+  },
+  {
+    id: "gc-q26",
+    subject: "general-chemistry",
+    topicId: "gc-kinetics-eq",
+    subtopicId: "gc-eq-lechatelier",
+    statement: "For a reaction at equilibrium, adding an inert gas at constant volume shifts the equilibrium toward the products.",
+    answer: false,
+    explanation:
+      "Adding an inert gas at constant VOLUME doesn't change the partial pressures or concentrations of reactants/products, so the equilibrium does NOT shift.",
+    difficulty: 3,
+  },
+  {
+    id: "gc-q27",
+    subject: "general-chemistry",
+    topicId: "gc-kinetics-eq",
+    subtopicId: "gc-eq-lechatelier",
+    statement: "If Q < K, the reaction will proceed forward (toward products) to reach equilibrium.",
+    answer: true,
+    explanation:
+      "True. When the reaction quotient Q is less than K, there are too few products, so the reaction shifts forward. If Q > K it shifts in reverse.",
+    difficulty: 2,
+  },
+  {
+    id: "gc-q28",
+    subject: "general-chemistry",
+    topicId: "gc-acidbase",
+    subtopicId: "gc-ab-ph",
+    statement: "A strong acid has a very large Ka and dissociates essentially completely in water.",
+    answer: true,
+    explanation:
+      "True. Strong acids (e.g., HCl, HNO₃, H₂SO₄) dissociate nearly completely, corresponding to a very large Ka (small pKa). Weak acids only partially dissociate.",
+    difficulty: 1,
+  },
+  {
+    id: "gc-q29",
+    subject: "general-chemistry",
+    topicId: "gc-acidbase",
+    subtopicId: "gc-ab-ph",
+    statement: "At 25 °C, a solution with pH 4 has ten times the hydrogen ion concentration of a solution with pH 5.",
+    answer: true,
+    explanation:
+      "True. pH is a base-10 logarithmic scale, so each unit decrease in pH means a tenfold increase in [H⁺]. pH 4 vs pH 5 is a 10× difference.",
+    difficulty: 1,
+  },
+  {
+    id: "gc-q30",
+    subject: "general-chemistry",
+    topicId: "gc-acidbase",
+    subtopicId: "gc-ab-ph",
+    statement: "The conjugate base of a strong acid is itself a strong base.",
+    answer: false,
+    explanation:
+      "The conjugate base of a STRONG acid is a very WEAK base (e.g., Cl⁻ from HCl). Strong acid ↔ weak conjugate base; weak acid ↔ relatively stronger conjugate base.",
+    difficulty: 2,
+  },
+  {
+    id: "gc-q31",
+    subject: "general-chemistry",
+    topicId: "gc-electro",
+    subtopicId: "gc-electro-cells",
+    statement: "Electrons flow from the cathode to the anode through the external wire of a galvanic cell.",
+    answer: false,
+    explanation:
+      "Electrons flow from the ANODE (oxidation) to the CATHODE (reduction) through the external circuit. Conventional current is defined in the opposite direction.",
+    difficulty: 2,
+  },
+  {
+    id: "gc-q32",
+    subject: "general-chemistry",
+    topicId: "gc-electro",
+    subtopicId: "gc-electro-cells",
+    statement: "In a redox reaction, the species that is oxidized is the reducing agent.",
+    answer: true,
+    explanation:
+      "True. The substance oxidized donates electrons, thereby reducing something else — so it is the reducing agent. The species reduced is the oxidizing agent.",
+    difficulty: 2,
+  },
+  {
+    id: "gc-q33",
+    subject: "general-chemistry",
+    topicId: "gc-electro",
+    subtopicId: "gc-electro-cells",
+    statement: "A positive standard cell potential corresponds to a spontaneous reaction.",
+    answer: true,
+    explanation:
+      "True. Since ΔG = −nFE°cell, a positive E°cell gives a negative ΔG, meaning the reaction is spontaneous (as in a galvanic cell).",
+    difficulty: 1,
+  },
+  {
+    id: "gc-q34",
+    subject: "general-chemistry",
+    topicId: "gc-bonding",
+    subtopicId: "gc-bond-imf",
+    statement: "Ionic compounds generally have higher melting points than molecular compounds.",
+    answer: true,
+    explanation:
+      "True. Ionic lattices are held together by strong electrostatic attractions throughout the crystal, requiring much more energy to melt than the weaker intermolecular forces in molecular solids.",
+    difficulty: 1,
+  },
+  {
+    id: "gc-q35",
+    subject: "general-chemistry",
+    topicId: "gc-kinetics-eq",
+    subtopicId: "gc-eq-lechatelier",
+    statement: "Increasing the concentration of a reactant increases the value of the equilibrium constant K.",
+    answer: false,
+    explanation:
+      "Adding reactant shifts the position of equilibrium toward products, but K itself is unchanged — K depends only on temperature, not on concentrations.",
+    difficulty: 2,
+  },
+  {
+    id: "gc-q36",
+    subject: "general-chemistry",
+    topicId: "gc-atomic",
+    subtopicId: "gc-atom-quantum",
+    statement: "The d subshell can hold a maximum of 10 electrons.",
+    answer: true,
+    explanation:
+      "True. The d subshell has 5 orbitals × 2 electrons = 10. (s holds 2, p holds 6, d holds 10, f holds 14.)",
+    difficulty: 1,
+  },
+  {
+    id: "gc-q37",
+    subject: "general-chemistry",
+    topicId: "gc-thermo",
+    subtopicId: "gc-thermo-gibbs",
+    statement: "Hess's law states that the enthalpy change of a reaction is the same whether it occurs in one step or several.",
+    answer: true,
+    explanation:
+      "True. Because enthalpy is a state function, the total ΔH equals the sum of the ΔH values of the steps, regardless of pathway — the basis of Hess's law.",
+    difficulty: 2,
+  },
+  {
+    id: "gc-q38",
+    subject: "general-chemistry",
+    topicId: "gc-acidbase",
+    subtopicId: "gc-ab-ph",
+    statement: "At the equivalence point of a strong acid–strong base titration, the pH is 7.",
+    answer: true,
+    explanation:
+      "True. A strong acid neutralized by a strong base yields only water and a neutral salt, so the equivalence-point pH is 7. (For weak acid–strong base titrations it is above 7.)",
+    difficulty: 2,
+  },
+  {
+    id: "gc-q39",
+    subject: "general-chemistry",
+    topicId: "gc-kinetics-eq",
+    subtopicId: "gc-kin-rate",
+    statement: "For a first-order reaction, the half-life is independent of the initial concentration.",
+    answer: true,
+    explanation:
+      "True. A first-order half-life is t½ = 0.693/k, which contains no concentration term — so it stays constant as the reaction proceeds (characteristic of first-order kinetics).",
+    difficulty: 2,
+  },
+  {
+    id: "gc-q40",
+    subject: "general-chemistry",
+    topicId: "gc-bonding",
+    subtopicId: "gc-bond-imf",
+    statement: "Water has an unusually high boiling point for its size because of hydrogen bonding.",
+    answer: true,
+    explanation:
+      "True. Extensive hydrogen bonding among water molecules (H bonded to O) requires extra energy to overcome, giving water a far higher boiling point than similarly sized nonpolar molecules.",
+    difficulty: 1,
+  },
+];

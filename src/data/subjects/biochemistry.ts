@@ -133,8 +133,40 @@ export const biochemistry: Subject = {
             ],
           },
         },
-        { id: "bc-met-glycogen", name: "Glycogen & gluconeogenesis" },
-        { id: "bc-met-lipid", name: "Fatty acid metabolism" },
+        {
+          id: "bc-met-glycogen",
+          name: "Glycogen & gluconeogenesis",
+          summary: {
+            highYield: "Liver vs muscle glycogen, and why gluconeogenesis is NOT just reverse glycolysis.",
+            body: [
+              { type: "p", text: "Glycogen is the body's short-term glucose store. Glycogenesis builds it; glycogenolysis breaks it down. Gluconeogenesis makes new glucose from non-carbohydrate precursors (lactate, glycerol, amino acids) when stores run low." },
+              { type: "list", items: [
+                "Liver glycogen → maintains blood glucose for the whole body.",
+                "Muscle glycogen → fuels the muscle only (muscle lacks glucose-6-phosphatase, so it can't release free glucose into the blood).",
+                "Glycogen phosphorylase = breakdown (activated by glucagon/epinephrine via cAMP/PKA).",
+                "Glycogen synthase = synthesis (activated by insulin).",
+              ] },
+              { type: "key", term: "Gluconeogenesis bypasses", def: "It reverses glycolysis except at the 3 irreversible steps, using unique enzymes: pyruvate carboxylase + PEP carboxykinase, fructose-1,6-bisphosphatase, and glucose-6-phosphatase. Occurs mainly in the liver." },
+              { type: "tip", text: "Hormonal logic: insulin (fed state) stores fuel; glucagon (fasting) mobilizes it. They have reciprocal effects on these pathways." },
+            ],
+          },
+        },
+        {
+          id: "bc-met-lipid",
+          name: "Fatty acid metabolism",
+          summary: {
+            highYield: "Beta-oxidation (breakdown) vs fatty acid synthesis — opposite compartments, opposite carriers.",
+            body: [
+              { type: "p", text: "Fatty acids are the most energy-dense fuel (~9 kcal/g vs ~4 for carbs). Breakdown and synthesis are deliberately separated to avoid a futile cycle." },
+              { type: "list", items: [
+                "Beta-oxidation — in the MITOCHONDRIA; removes 2 carbons at a time, yielding acetyl-CoA + NADH + FADH₂. Long-chain fatty acids need the carnitine shuttle to enter.",
+                "Fatty acid synthesis — in the CYTOPLASM; builds chains from acetyl-CoA via malonyl-CoA, using NADPH as the reducing power.",
+              ] },
+              { type: "key", term: "Ketone bodies", def: "During prolonged fasting, excess acetyl-CoA in the liver is converted to ketone bodies, which the brain can use as an alternative fuel to spare glucose and limit muscle breakdown." },
+              { type: "tip", text: "Lipids travel in lipoproteins: chylomicrons (dietary fat), VLDL (liver→tissues), LDL ('bad' — delivers cholesterol), HDL ('good' — returns cholesterol to the liver)." },
+            ],
+          },
+        },
       ],
     },
   ],

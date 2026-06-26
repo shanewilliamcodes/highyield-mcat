@@ -103,8 +103,39 @@ export const psychology: Subject = {
       name: "Development & Motivation",
       blurb: "How people change over the lifespan and what drives behavior.",
       subtopics: [
-        { id: "psy-dev-theories", name: "Developmental theories" },
-        { id: "psy-dev-emotion", name: "Emotion & motivation theories" },
+        {
+          id: "psy-dev-theories",
+          name: "Developmental theories",
+          summary: {
+            highYield: "Match the theorist to the stages — Piaget, Erikson, Kohlberg, Vygotsky are the big four.",
+            body: [
+              { type: "list", items: [
+                "Piaget (cognitive) — sensorimotor (object permanence), preoperational (egocentrism), concrete operational (conservation), formal operational (abstract logic).",
+                "Erikson (psychosocial) — 8 stages, each a conflict (e.g., trust vs mistrust; identity vs role confusion in adolescence).",
+                "Kohlberg (moral) — preconventional (punishment/reward), conventional (social approval/law), postconventional (abstract principles).",
+                "Vygotsky (sociocultural) — learning is social; the zone of proximal development is what a child can do with guidance.",
+              ] },
+              { type: "tip", text: "Piaget = stages you reach on your own; Vygotsky = development driven by social interaction and scaffolding." },
+            ],
+          },
+        },
+        {
+          id: "psy-dev-emotion",
+          name: "Emotion & motivation theories",
+          summary: {
+            highYield: "The three emotion theories differ on the ORDER of stimulus, arousal, and feeling.",
+            body: [
+              { type: "h", text: "Theories of emotion" },
+              { type: "list", items: [
+                "James–Lange — arousal first, then emotion ('I tremble, so I'm afraid').",
+                "Cannon–Bard — arousal and emotion occur simultaneously and independently.",
+                "Schachter–Singer (two-factor) — arousal + cognitive LABEL of that arousal = emotion.",
+              ] },
+              { type: "key", term: "Motivation", def: "Drive-reduction theory (reduce internal tension to reach homeostasis), arousal theory (seek an optimal level — Yerkes–Dodson inverted U), and Maslow's hierarchy (physiological → safety → love → esteem → self-actualization)." },
+              { type: "tip", text: "Yerkes–Dodson: moderate arousal is best; hard tasks favor lower arousal, easy tasks tolerate higher arousal." },
+            ],
+          },
+        },
       ],
     },
     {
@@ -112,7 +143,25 @@ export const psychology: Subject = {
       name: "Psychological Disorders",
       blurb: "Major categories and the biomedical vs biopsychosocial view.",
       subtopics: [
-        { id: "psy-dis-categories", name: "Categories of disorders" },
+        {
+          id: "psy-dis-categories",
+          name: "Categories of disorders",
+          summary: {
+            highYield: "Know the major DSM categories and the positive/negative symptom split for schizophrenia.",
+            body: [
+              { type: "list", items: [
+                "Depressive & bipolar — major depressive disorder, persistent depressive disorder, bipolar I/II (manic and depressive episodes).",
+                "Anxiety — generalized anxiety, panic disorder, phobias; excessive fear/worry.",
+                "Obsessive-compulsive & related — intrusive obsessions and compulsive rituals.",
+                "Trauma — PTSD after a traumatic event.",
+                "Schizophrenia spectrum — psychosis with positive and negative symptoms.",
+                "Personality disorders — enduring maladaptive patterns (e.g., borderline, antisocial).",
+              ] },
+              { type: "key", term: "Positive vs negative symptoms", def: "Positive = ADD to normal experience (hallucinations, delusions, disorganized speech). Negative = SUBTRACT from it (flat affect, avolition, social withdrawal)." },
+              { type: "tip", text: "Biomedical model = disorders are biological (genes, neurotransmitters). Biopsychosocial model = biology + psychology + social/cultural context together." },
+            ],
+          },
+        },
       ],
     },
   ],
