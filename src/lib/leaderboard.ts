@@ -1,18 +1,24 @@
 import "server-only";
 import type { LeaderboardEntry } from "@/lib/types";
+import { put, head } from "@vercel/blob";
 import fs from "node:fs/promises";
 import path from "node:path";
 
 const KEY = "highyield:leaderboard:v1";
+const BLOB_PATH = "leaderboard/highyield-v1.json";
 const MAX_ENTRIES = 100;
 
 /**
- * Storage is pluggable:
- *  - In production, set KV_REST_API_URL + KV_REST_API_TOKEN (Vercel KV /
- *    Upstash Redis). We talk to the REST command endpoint — no SDK needed.
- *  - Locally (or if those env vars are missing) we fall back to a JSON file
- *    under .data/ so the leaderboard works with zero setup during dev.
+ * Storage is pluggable, picked in priority order:
+ *  1. Vercel Blob — set BLOB_READ_WRITE_TOKEN (auto-injected when a Blob store
+ *     is connected to the project). Used in production. First-party, no extra
+ *     account needed.
+ *  2. Vercel KV / Upstash Redis — set KV_REST_API_URL + KV_REST_API_TOKEN.
+ *  3. Local JSON file under .data/ — zero-setup fallback for dev.
  */
+const BLOB_TOKEN = process.env.BLOB_READ_WRITE_TOKEN;
+const useBlob = Boolean(BLOB_TOKEN);
+
 const REST_URL = process.env.KV_REST_API_URL ?? process.env.UPSTASH_REDIS_REST_URL;
 const REST_TOKEN =
   process.env.KV_REST_API_TOKEN ?? process.env.UPSTASH_REDIS_REST_TOKEN;
@@ -49,7 +55,31 @@ async function writeFileStore(entries: LeaderboardEntry[]): Promise<void> {
   await fs.writeFile(FILE, JSON.stringify(entries, null, 2), "utf8");
 }
 
+async function readBlobStore(): Promise<LeaderboardEntry[]> {
+  try {
+    const meta = await head(BLOB_PATH, { token: BLOB_TOKEN });
+    const res = await fetch(meta.url, { cache: "no-store" });
+    if (!res.ok) return [];
+    return (await res.json()) as LeaderboardEntry[];
+  } catch {
+    // head() throws BlobNotFoundError before the first write — treat as empty.
+    return [];
+  }
+}
+
+async function writeBlobStore(entries: LeaderboardEntry[]): Promise<void> {
+  await put(BLOB_PATH, JSON.stringify(entries), {
+    access: "public",
+    token: BLOB_TOKEN,
+    contentType: "application/json",
+    addRandomSuffix: false,
+    allowOverwrite: true,
+    cacheControlMaxAge: 0,
+  });
+}
+
 async function readAll(): Promise<LeaderboardEntry[]> {
+  if (useBlob) return readBlobStore();
   if (useRedis) {
     const raw = (await redisCommand(["GET", KEY])) as string | null;
     if (!raw) return [];
@@ -63,6 +93,10 @@ async function readAll(): Promise<LeaderboardEntry[]> {
 }
 
 async function writeAll(entries: LeaderboardEntry[]): Promise<void> {
+  if (useBlob) {
+    await writeBlobStore(entries);
+    return;
+  }
   if (useRedis) {
     await redisCommand(["SET", KEY, JSON.stringify(entries)]);
     return;
@@ -100,4 +134,4 @@ export async function submitScore(
   };
 }
 
-export const STORAGE_MODE = useRedis ? "redis" : "file";
+export const STORAGE_MODE = useBlob ? "blob" : useRedis ? "redis" : "file";
