@@ -249,5 +249,41 @@ export const biology: Subject = {
         },
       ],
     },
+    {
+      id: "bio-evolution",
+      name: "Evolution & Populations",
+      blurb: "Natural selection, population genetics, and how allele frequencies change.",
+      subtopics: [
+        {
+          id: "bio-evo-selection",
+          name: "Natural selection & fitness",
+          summary: {
+            highYield: "Fitness = reproductive success. Know the types of selection and what drives evolution.",
+            body: [
+              { type: "p", text: "Evolution is a change in allele frequencies over generations. Natural selection acts on heritable variation: individuals with traits that improve survival and reproduction (fitness) leave more offspring." },
+              { type: "list", items: [
+                "Directional selection — favors one extreme (e.g., larger beaks).",
+                "Stabilizing selection — favors the average, against extremes.",
+                "Disruptive selection — favors both extremes over the middle.",
+              ] },
+              { type: "key", term: "Other mechanisms", def: "Genetic drift (random change, strong in small populations), gene flow (migration), mutation (raw source of variation), and non-random mating also change allele frequencies." },
+              { type: "tip", text: "Fitness is about REPRODUCTION, not strength or lifespan. A sterile but strong organism has zero fitness." },
+            ],
+          },
+        },
+        {
+          id: "bio-evo-hardyweinberg",
+          name: "Hardy-Weinberg equilibrium",
+          summary: {
+            highYield: "Memorize p² + 2pq + q² = 1 and the five conditions — pure exam points.",
+            body: [
+              { type: "p", text: "Hardy-Weinberg describes a NON-evolving population as a baseline. Allele frequencies p + q = 1; genotype frequencies are p² (homozygous dominant) + 2pq (heterozygous) + q² (homozygous recessive) = 1." },
+              { type: "key", term: "Five conditions", def: "No mutation, no gene flow (migration), no genetic drift (infinite population), random mating, and no natural selection. If any is violated, the population can evolve." },
+              { type: "tip", text: "A common trick: the frequency of an autosomal recessive disease equals q², so q = √(disease frequency), and carrier frequency is 2pq." },
+            ],
+          },
+        },
+      ],
+    },
   ],
 };

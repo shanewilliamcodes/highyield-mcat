@@ -30,6 +30,18 @@ export const organicChemistry: Subject = {
             ],
           },
         },
+        {
+          id: "oc-nomenclature",
+          name: "Nomenclature & functional group priority",
+          summary: {
+            highYield: "The functional-group priority order tells you the suffix and lowest-locant numbering.",
+            body: [
+              { type: "p", text: "IUPAC names = (substituents) + (longest chain root) + (suffix for the highest-priority group). Number the chain to give the principal group the lowest locant." },
+              { type: "key", term: "Priority order (high → low)", def: "Carboxylic acid > ester > amide > nitrile > aldehyde > ketone > alcohol > amine > alkene/alkyne > alkane. The top group present becomes the suffix; lower ones become prefixes." },
+              { type: "tip", text: "Roots: meth(1), eth(2), prop(3), but(4), pent(5), hex(6). An -ol suffix means alcohol, -al aldehyde, -one ketone, -oic acid a carboxylic acid." },
+            ],
+          },
+        },
       ],
     },
     {

@@ -135,5 +135,45 @@ export const physics: Subject = {
         },
       ],
     },
+    {
+      id: "ph-thermo",
+      name: "Thermodynamics",
+      blurb: "Heat, temperature, and the laws governing energy transfer.",
+      subtopics: [
+        {
+          id: "ph-thermo-heat",
+          name: "Heat & temperature",
+          summary: {
+            highYield: "Q = mcΔT and the difference between heat and temperature are commonly tested.",
+            body: [
+              { type: "p", text: "Temperature measures average kinetic energy; heat (Q) is energy transferred due to a temperature difference. They are not the same thing." },
+              { type: "key", term: "Specific heat", def: "Q = mcΔT — the heat to change a mass m by ΔT. Water's high specific heat lets it resist temperature change and buffer the body." },
+              { type: "list", items: [
+                "Conduction — heat transfer through direct contact.",
+                "Convection — transfer by bulk movement of a fluid.",
+                "Radiation — transfer by electromagnetic waves (no medium needed).",
+                "Phase changes absorb/release latent heat at constant temperature (Q = mL).",
+              ] },
+            ],
+          },
+        },
+        {
+          id: "ph-thermo-laws",
+          name: "Laws of thermodynamics",
+          summary: {
+            highYield: "First law (energy conservation) and the entropy direction of the second law are key.",
+            body: [
+              { type: "list", items: [
+                "Zeroth law — objects in thermal equilibrium share the same temperature.",
+                "First law — ΔU = Q − W: internal energy change equals heat added minus work done by the system (energy is conserved).",
+                "Second law — the entropy of an isolated system tends to increase; heat flows spontaneously from hot to cold.",
+                "Third law — entropy approaches a minimum as temperature approaches absolute zero.",
+              ] },
+              { type: "tip", text: "Watch the sign convention: Q > 0 means heat IN; W > 0 means work done BY the gas (expansion). An isothermal process holds T constant; an adiabatic process exchanges no heat (Q = 0)." },
+            ],
+          },
+        },
+      ],
+    },
   ],
 };

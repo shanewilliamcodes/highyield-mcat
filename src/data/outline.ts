@@ -28,6 +28,7 @@ export const OUTLINE: OutlineSubject[] = [
       { id: "bio-molecular", name: "Molecular Biology" },
       { id: "bio-genetics", name: "Genetics" },
       { id: "bio-physiology", name: "Physiology & Systems" },
+      { id: "bio-evolution", name: "Evolution & Populations" },
     ],
   },
   {
@@ -39,6 +40,7 @@ export const OUTLINE: OutlineSubject[] = [
       { id: "bc-aa", name: "Amino Acids & Proteins" },
       { id: "bc-enzymes", name: "Enzymes" },
       { id: "bc-metabolism", name: "Metabolism" },
+      { id: "bc-biomol", name: "Biomolecules" },
     ],
   },
   {
@@ -53,6 +55,8 @@ export const OUTLINE: OutlineSubject[] = [
       { id: "gc-kinetics-eq", name: "Kinetics & Equilibrium" },
       { id: "gc-acidbase", name: "Acids & Bases" },
       { id: "gc-electro", name: "Electrochemistry" },
+      { id: "gc-gases", name: "Gases" },
+      { id: "gc-solutions", name: "Solutions & Solubility" },
     ],
   },
   {
@@ -76,6 +80,7 @@ export const OUTLINE: OutlineSubject[] = [
       { id: "ph-fluids", name: "Fluids" },
       { id: "ph-electricity", name: "Electricity & Magnetism" },
       { id: "ph-waves", name: "Waves, Sound & Optics" },
+      { id: "ph-thermo", name: "Thermodynamics" },
     ],
   },
   {
@@ -89,6 +94,7 @@ export const OUTLINE: OutlineSubject[] = [
       { id: "psy-cognition", name: "Cognition & Consciousness" },
       { id: "psy-development", name: "Development & Motivation" },
       { id: "psy-disorders", name: "Psychological Disorders" },
+      { id: "psy-biological", name: "Biological Bases of Behavior" },
     ],
   },
   {

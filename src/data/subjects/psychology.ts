@@ -164,5 +164,48 @@ export const psychology: Subject = {
         },
       ],
     },
+    {
+      id: "psy-biological",
+      name: "Biological Bases of Behavior",
+      blurb: "Neurons, neurotransmitters, and the brain regions behind behavior.",
+      subtopics: [
+        {
+          id: "psy-bio-neurotransmitters",
+          name: "Neurotransmitters",
+          summary: {
+            highYield: "Match each neurotransmitter to its main role — heavily tested on Psych/Soc.",
+            body: [
+              { type: "list", items: [
+                "Dopamine — reward, motivation, movement (↓ in Parkinson's, dysregulated in schizophrenia/addiction).",
+                "Serotonin — mood, sleep, appetite (targeted by SSRIs for depression).",
+                "Acetylcholine — muscle activation and memory (↓ in Alzheimer's).",
+                "Norepinephrine — alertness and the fight-or-flight response.",
+                "GABA — the main inhibitory neurotransmitter (calming).",
+                "Glutamate — the main excitatory neurotransmitter (learning, LTP).",
+              ] },
+              { type: "tip", text: "Endorphins are natural painkillers ('endogenous morphine') tied to pain relief and pleasure." },
+            ],
+          },
+        },
+        {
+          id: "psy-bio-brain",
+          name: "Brain regions",
+          summary: {
+            highYield: "Localize function — 'which structure does X' is a frequent question.",
+            body: [
+              { type: "list", items: [
+                "Frontal lobe — executive function, planning, voluntary movement, personality.",
+                "Amygdala — fear and emotional processing.",
+                "Hippocampus — formation of new long-term memories.",
+                "Hypothalamus — homeostasis: hunger, thirst, temperature, hormones (the 'four F's').",
+                "Cerebellum — coordination, balance, motor learning.",
+                "Medulla — vital autonomic functions (breathing, heart rate).",
+              ] },
+              { type: "key", term: "Cortex lobes", def: "Occipital = vision; temporal = hearing and language (Wernicke's); parietal = touch/spatial; frontal = movement and Broca's (speech production)." },
+            ],
+          },
+        },
+      ],
+    },
   ],
 };

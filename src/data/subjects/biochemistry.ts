@@ -169,5 +169,56 @@ export const biochemistry: Subject = {
         },
       ],
     },
+    {
+      id: "bc-biomol",
+      name: "Biomolecules",
+      blurb: "Carbohydrates, lipids, and nucleic acids — structure and function.",
+      subtopics: [
+        {
+          id: "bc-biomol-carb",
+          name: "Carbohydrates",
+          summary: {
+            highYield: "Know the glycosidic linkages and how monosaccharides cyclize.",
+            body: [
+              { type: "p", text: "Carbohydrates are polyhydroxy aldehydes (aldoses) or ketones (ketoses). Monosaccharides (glucose, fructose) join via glycosidic bonds into di- and polysaccharides." },
+              { type: "list", items: [
+                "Storage polysaccharides — starch (plants) and glycogen (animals), both α-linked and digestible.",
+                "Structural polysaccharides — cellulose (β-linked, indigestible to humans) and chitin.",
+                "Cyclization creates a new stereocenter (anomeric carbon) → α and β anomers.",
+              ] },
+              { type: "key", term: "Reducing sugars", def: "Sugars with a free anomeric carbon (an open-chain aldehyde/ketone) can reduce other compounds — detected by Tollens' or Benedict's tests." },
+            ],
+          },
+        },
+        {
+          id: "bc-biomol-lipid",
+          name: "Lipids & membranes",
+          summary: {
+            highYield: "Phospholipid amphipathicity is why membranes form bilayers — tie it to transport.",
+            body: [
+              { type: "p", text: "Lipids are hydrophobic/amphipathic biomolecules. Triacylglycerols store energy; phospholipids build membranes; steroids (like cholesterol) modulate fluidity and serve as hormone precursors." },
+              { type: "key", term: "Amphipathic phospholipids", def: "A hydrophilic phosphate head and two hydrophobic fatty-acid tails drive self-assembly into the bilayer, with tails inward away from water." },
+              { type: "tip", text: "Saturated fats (no C=C) pack tightly and are solid at room temp; unsaturated fats (cis double bonds) kink and stay liquid — the same logic governs membrane fluidity." },
+            ],
+          },
+        },
+        {
+          id: "bc-biomol-nucleic",
+          name: "Nucleic acids",
+          summary: {
+            highYield: "Base pairing rules and the antiparallel, 5'→3' convention are foundational.",
+            body: [
+              { type: "p", text: "Nucleotides (sugar + phosphate + nitrogenous base) polymerize into DNA and RNA via phosphodiester bonds. DNA is a double helix of two antiparallel strands." },
+              { type: "list", items: [
+                "Purines (two rings) — adenine, guanine. Pyrimidines (one ring) — cytosine, thymine (DNA), uracil (RNA).",
+                "Base pairing — A–T (A–U in RNA) with 2 H-bonds; G–C with 3 H-bonds (so G–C-rich DNA is more stable).",
+                "DNA uses deoxyribose and is double-stranded; RNA uses ribose and is usually single-stranded.",
+              ] },
+              { type: "tip", text: "Strands run antiparallel: one 5'→3', the complement 3'→5'. Synthesis always adds to the 3' end." },
+            ],
+          },
+        },
+      ],
+    },
   ],
 };

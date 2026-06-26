@@ -180,5 +180,83 @@ export const generalChemistry: Subject = {
         },
       ],
     },
+    {
+      id: "gc-gases",
+      name: "Gases",
+      blurb: "The ideal gas law, partial pressures, and kinetic molecular theory.",
+      subtopics: [
+        {
+          id: "gc-gas-ideal",
+          name: "Ideal gas law & gas laws",
+          summary: {
+            highYield: "PV = nRT and its shortcuts (Boyle, Charles, Avogadro) are near-guaranteed points.",
+            body: [
+              { type: "p", text: "An ideal gas obeys PV = nRT. Hold two variables constant and you recover the simple gas laws." },
+              { type: "list", items: [
+                "Boyle's law — P ∝ 1/V at constant T (squeeze it, pressure rises).",
+                "Charles's law — V ∝ T at constant P (heat it, it expands).",
+                "Gay-Lussac's law — P ∝ T at constant V.",
+                "Avogadro's law — V ∝ n (more moles, more volume).",
+              ] },
+              { type: "key", term: "STP", def: "At standard temperature and pressure (0 °C, 1 atm), one mole of an ideal gas occupies 22.4 L." },
+              { type: "tip", text: "Always use ABSOLUTE temperature (kelvin) in gas-law math. Combined gas law: P₁V₁/T₁ = P₂V₂/T₂." },
+            ],
+          },
+        },
+        {
+          id: "gc-gas-kmt",
+          name: "Kinetic theory & real gases",
+          summary: {
+            highYield: "Know when real gases deviate from ideal — high pressure and low temperature.",
+            body: [
+              { type: "p", text: "Kinetic molecular theory models gas particles as tiny, fast, randomly moving points with negligible volume and no intermolecular forces, whose average kinetic energy is proportional to temperature." },
+              { type: "key", term: "Dalton's law", def: "Total pressure of a gas mixture = sum of the partial pressures of each component (P_total = ΣP_i)." },
+              { type: "key", term: "Graham's law", def: "Lighter gases effuse/diffuse faster: rate ∝ 1/√(molar mass)." },
+              { type: "tip", text: "Real gases deviate from ideal at HIGH pressure and LOW temperature, where molecular volume and intermolecular attractions can no longer be ignored." },
+            ],
+          },
+        },
+      ],
+    },
+    {
+      id: "gc-solutions",
+      name: "Solutions & Solubility",
+      blurb: "Concentration, solubility equilibria, and colligative properties.",
+      subtopics: [
+        {
+          id: "gc-sol-solubility",
+          name: "Solubility & Ksp",
+          summary: {
+            highYield: "Ksp and the common-ion effect are classic equilibrium questions.",
+            body: [
+              { type: "p", text: "Solubility is how much solute dissolves; the solubility product Ksp is the equilibrium constant for a slightly soluble salt dissolving into its ions." },
+              { type: "key", term: "Common-ion effect", def: "Adding an ion already present in the equilibrium shifts it (Le Châtelier) toward the solid, DECREASING solubility." },
+              { type: "list", items: [
+                "'Like dissolves like' — polar solvents dissolve polar/ionic solutes; nonpolar dissolves nonpolar.",
+                "Gas solubility increases at lower temperature and higher pressure (Henry's law).",
+                "Compare Q to Ksp: Q > Ksp → precipitate forms; Q < Ksp → more can dissolve.",
+              ] },
+            ],
+          },
+        },
+        {
+          id: "gc-sol-colligative",
+          name: "Colligative properties",
+          summary: {
+            highYield: "Colligative properties depend on the NUMBER of particles, not their identity.",
+            body: [
+              { type: "p", text: "Colligative properties change with solute particle concentration regardless of what the solute is. Dissolving a solute in a solvent:" },
+              { type: "list", items: [
+                "Boiling point elevation — solute raises the boiling point (ΔT = i·Kb·m).",
+                "Freezing point depression — solute lowers the freezing point (why salt melts ice).",
+                "Vapor pressure lowering — fewer solvent molecules escape (Raoult's law).",
+                "Osmotic pressure — Π = iMRT drives water across a membrane toward higher solute.",
+              ] },
+              { type: "key", term: "Van't Hoff factor (i)", def: "The number of particles a solute dissociates into: glucose i = 1, NaCl i = 2, CaCl₂ i = 3. More particles → bigger colligative effect." },
+            ],
+          },
+        },
+      ],
+    },
   ],
 };
