@@ -1,18 +1,20 @@
 import "server-only";
 import type { LeaderboardEntry } from "@/lib/types";
-import { put, head } from "@vercel/blob";
+import { put, list, del } from "@vercel/blob";
 import fs from "node:fs/promises";
 import path from "node:path";
 
 const KEY = "highyield:leaderboard:v1";
-const BLOB_PATH = "leaderboard/highyield-v1.json";
 const MAX_ENTRIES = 100;
+const PRUNE_AT = 130;
 
 /**
  * Storage is pluggable, picked in priority order:
  *  1. Vercel Blob — set BLOB_READ_WRITE_TOKEN (auto-injected when a Blob store
- *     is connected to the project). Used in production. First-party, no extra
- *     account needed.
+ *     is connected). Each score is written as its own IMMUTABLE blob with the
+ *     score encoded in the filename, and the board is read via list() — a fresh
+ *     metadata call, not the CDN. This avoids the stale-cache / lost-write
+ *     problems of overwriting a single JSON object in object storage.
  *  2. Vercel KV / Upstash Redis — set KV_REST_API_URL + KV_REST_API_TOKEN.
  *  3. Local JSON file under .data/ — zero-setup fallback for dev.
  */
@@ -23,6 +25,71 @@ const REST_URL = process.env.KV_REST_API_URL ?? process.env.UPSTASH_REDIS_REST_U
 const REST_TOKEN =
   process.env.KV_REST_API_TOKEN ?? process.env.UPSTASH_REDIS_REST_TOKEN;
 const useRedis = Boolean(REST_URL && REST_TOKEN);
+
+/* ----------------------------- Blob backend ----------------------------- */
+
+const SCORE_PREFIX = "scores/";
+
+function encodeEntry(e: LeaderboardEntry, rand: string): string {
+  // scores/<streak padded>_<at>_<rand>_<name base64url>.json
+  const streak = String(e.streak).padStart(7, "0");
+  const nameB64 = Buffer.from(e.name, "utf8").toString("base64url");
+  return `${SCORE_PREFIX}${streak}_${e.at}_${rand}_${nameB64}.json`;
+}
+
+function decodeEntry(pathname: string): LeaderboardEntry | null {
+  try {
+    const core = pathname.slice(SCORE_PREFIX.length, -".json".length);
+    const i1 = core.indexOf("_");
+    const i2 = core.indexOf("_", i1 + 1);
+    const i3 = core.indexOf("_", i2 + 1);
+    if (i1 < 0 || i2 < 0 || i3 < 0) return null;
+    const streak = Number(core.slice(0, i1));
+    const at = Number(core.slice(i1 + 1, i2));
+    const nameB64 = core.slice(i3 + 1);
+    const name = Buffer.from(nameB64, "base64url").toString("utf8");
+    if (!Number.isFinite(streak) || !Number.isFinite(at)) return null;
+    return { name, streak, at };
+  } catch {
+    return null;
+  }
+}
+
+async function readBlobEntries(): Promise<LeaderboardEntry[]> {
+  const { blobs } = await list({
+    prefix: SCORE_PREFIX,
+    limit: 1000,
+    token: BLOB_TOKEN,
+  });
+  return blobs
+    .map((b) => decodeEntry(b.pathname))
+    .filter((e): e is LeaderboardEntry => e !== null);
+}
+
+async function appendBlobEntry(e: LeaderboardEntry): Promise<void> {
+  const rand = Math.random().toString(36).slice(2, 8);
+  await put(encodeEntry(e, rand), "1", {
+    access: "public",
+    token: BLOB_TOKEN,
+    addRandomSuffix: false,
+    allowOverwrite: false,
+    contentType: "text/plain",
+  });
+}
+
+/** Keep the store from growing without bound: drop everything below the top N. */
+async function pruneBlob(): Promise<void> {
+  const { blobs } = await list({ prefix: SCORE_PREFIX, limit: 1000, token: BLOB_TOKEN });
+  if (blobs.length <= PRUNE_AT) return;
+  const ranked = blobs
+    .map((b) => ({ url: b.url, e: decodeEntry(b.pathname) }))
+    .filter((x) => x.e)
+    .sort((a, b) => b.e!.streak - a.e!.streak || a.e!.at - b.e!.at);
+  const losers = ranked.slice(MAX_ENTRIES).map((x) => x.url);
+  if (losers.length) await del(losers, { token: BLOB_TOKEN });
+}
+
+/* ------------------------- Redis / file backends ------------------------- */
 
 async function redisCommand(command: (string | number)[]): Promise<unknown> {
   const res = await fetch(REST_URL!, {
@@ -43,8 +110,7 @@ const FILE = path.join(process.cwd(), ".data", "leaderboard.json");
 
 async function readFileStore(): Promise<LeaderboardEntry[]> {
   try {
-    const raw = await fs.readFile(FILE, "utf8");
-    return JSON.parse(raw) as LeaderboardEntry[];
+    return JSON.parse(await fs.readFile(FILE, "utf8")) as LeaderboardEntry[];
   } catch {
     return [];
   }
@@ -55,34 +121,23 @@ async function writeFileStore(entries: LeaderboardEntry[]): Promise<void> {
   await fs.writeFile(FILE, JSON.stringify(entries, null, 2), "utf8");
 }
 
-async function readBlobStore(): Promise<LeaderboardEntry[]> {
-  try {
-    const meta = await head(BLOB_PATH, { token: BLOB_TOKEN });
-    // Cache-bust the public CDN URL so a read right after a write never serves
-    // stale content.
-    const fresh = `${meta.url}?t=${Date.now()}`;
-    const res = await fetch(fresh, { cache: "no-store" });
-    if (!res.ok) return [];
-    return (await res.json()) as LeaderboardEntry[];
-  } catch {
-    // head() throws BlobNotFoundError before the first write — treat as empty.
-    return [];
-  }
-}
+/* ------------------------------ Shared API ------------------------------ */
 
-async function writeBlobStore(entries: LeaderboardEntry[]): Promise<void> {
-  await put(BLOB_PATH, JSON.stringify(entries), {
-    access: "public",
-    token: BLOB_TOKEN,
-    contentType: "application/json",
-    addRandomSuffix: false,
-    allowOverwrite: true,
-    cacheControlMaxAge: 0,
-  });
+function sortTrim(entries: LeaderboardEntry[]): LeaderboardEntry[] {
+  const seen = new Set<string>();
+  return entries
+    .filter((e) => {
+      const k = `${e.name}|${e.streak}|${e.at}`;
+      if (seen.has(k)) return false;
+      seen.add(k);
+      return true;
+    })
+    .sort((a, b) => b.streak - a.streak || a.at - b.at)
+    .slice(0, MAX_ENTRIES);
 }
 
 async function readAll(): Promise<LeaderboardEntry[]> {
-  if (useBlob) return readBlobStore();
+  if (useBlob) return readBlobEntries();
   if (useRedis) {
     const raw = (await redisCommand(["GET", KEY])) as string | null;
     if (!raw) return [];
@@ -93,24 +148,6 @@ async function readAll(): Promise<LeaderboardEntry[]> {
     }
   }
   return readFileStore();
-}
-
-async function writeAll(entries: LeaderboardEntry[]): Promise<void> {
-  if (useBlob) {
-    await writeBlobStore(entries);
-    return;
-  }
-  if (useRedis) {
-    await redisCommand(["SET", KEY, JSON.stringify(entries)]);
-    return;
-  }
-  await writeFileStore(entries);
-}
-
-function sortTrim(entries: LeaderboardEntry[]): LeaderboardEntry[] {
-  return entries
-    .sort((a, b) => b.streak - a.streak || a.at - b.at)
-    .slice(0, MAX_ENTRIES);
 }
 
 export async function getTop(limit = 25): Promise<LeaderboardEntry[]> {
@@ -125,16 +162,25 @@ export async function submitScore(
   const name = nameRaw.trim().slice(0, 24) || "Anonymous";
   const entry: LeaderboardEntry = { name, streak, at: Date.now() };
 
-  const all = sortTrim([...(await readAll()), entry]);
-  await writeAll(all);
+  if (useBlob) {
+    await appendBlobEntry(entry);
+    // Merge our just-written entry in case list() hasn't caught it yet.
+    const all = sortTrim([entry, ...(await readBlobEntries())]);
+    void pruneBlob();
+    const idx = all.findIndex(
+      (e) => e.name === entry.name && e.streak === entry.streak && e.at === entry.at,
+    );
+    return { rank: idx >= 0 ? idx + 1 : null, top: all.slice(0, 25) };
+  }
 
-  const rankIdx = all.findIndex(
+  const all = sortTrim([...(await readAll()), entry]);
+  if (useRedis) await redisCommand(["SET", KEY, JSON.stringify(all)]);
+  else await writeFileStore(all);
+
+  const idx = all.findIndex(
     (e) => e.name === entry.name && e.streak === entry.streak && e.at === entry.at,
   );
-  return {
-    rank: rankIdx >= 0 ? rankIdx + 1 : null,
-    top: all.slice(0, 25),
-  };
+  return { rank: idx >= 0 ? idx + 1 : null, top: all.slice(0, 25) };
 }
 
 export const STORAGE_MODE = useBlob ? "blob" : useRedis ? "redis" : "file";
