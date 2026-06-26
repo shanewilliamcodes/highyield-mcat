@@ -58,7 +58,10 @@ async function writeFileStore(entries: LeaderboardEntry[]): Promise<void> {
 async function readBlobStore(): Promise<LeaderboardEntry[]> {
   try {
     const meta = await head(BLOB_PATH, { token: BLOB_TOKEN });
-    const res = await fetch(meta.url, { cache: "no-store" });
+    // Cache-bust the public CDN URL so a read right after a write never serves
+    // stale content.
+    const fresh = `${meta.url}?t=${Date.now()}`;
+    const res = await fetch(fresh, { cache: "no-store" });
     if (!res.ok) return [];
     return (await res.json()) as LeaderboardEntry[];
   } catch {
