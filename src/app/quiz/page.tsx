@@ -375,7 +375,9 @@ function PlayScreen({
       fontSize: 22,
       fontWeight: 800,
       cursor: answered ? "default" : "pointer",
-      border: "2px solid var(--border)",
+      borderWidth: 2,
+      borderStyle: "solid",
+      borderColor: "var(--border)",
       background: "var(--surface)",
       transition: "all 0.15s ease",
     };
