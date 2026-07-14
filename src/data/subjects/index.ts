@@ -6,6 +6,7 @@ import { organicChemistry } from "./organic-chemistry";
 import { physics } from "./physics";
 import { psychology } from "./psychology";
 import { sociology } from "./sociology";
+import { SUPPLEMENTAL_TOPICS } from "./supplemental";
 
 /** All disciplines, in a sensible study order. CARS is intentionally excluded. */
 export const SUBJECTS: Subject[] = [
@@ -16,7 +17,10 @@ export const SUBJECTS: Subject[] = [
   physics,
   psychology,
   sociology,
-];
+].map((subject) => ({
+  ...subject,
+  topics: [...subject.topics, ...SUPPLEMENTAL_TOPICS[subject.id]],
+}));
 
 export const SUBJECT_BY_ID: Record<SubjectId, Subject> = SUBJECTS.reduce(
   (acc, s) => {

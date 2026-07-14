@@ -58,6 +58,7 @@ export const psychology: Subject = {
           id: "psy-learn-memory",
           name: "Memory",
           summary: {
+            highYield: "Bias questions often differ by one cue: ease of recall, prototype similarity, an initial anchor, or belief confirmation.",
             body: [
               { type: "p", text: "Stages: encoding → storage → retrieval. The modal model: sensory → short-term/working (≈7 items, ~30 s) → long-term." },
               { type: "key", term: "LTM types", def: "Explicit/declarative (episodic events, semantic facts) vs implicit/non-declarative (procedural skills, conditioning)." },
@@ -82,6 +83,7 @@ export const psychology: Subject = {
                 "Representativeness heuristic — judge by similarity to a prototype (ignores base rates).",
                 "Confirmation bias — seek info that confirms existing beliefs.",
               ] },
+              { type: "tip", text: "Representativeness neglects base rates; availability overweights memorable examples; anchoring stays too close to an initial value." },
             ],
           },
         },

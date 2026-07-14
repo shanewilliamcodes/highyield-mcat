@@ -117,8 +117,10 @@ export const generalChemistry: Subject = {
           id: "gc-kin-rate",
           name: "Reaction rates",
           summary: {
+            highYield: "Be able to infer reaction order, rate constants, and mechanism constraints from experimental data.",
             body: [
               { type: "p", text: "Rate laws are determined experimentally, not from stoichiometry. Order = sum of exponents. Catalysts speed reactions by lowering activation energy without being consumed and without changing ΔG or K." },
+              { type: "tip", text: "Only an elementary step's molecularity maps directly to exponents. For an overall reaction, use measured initial-rate changes." },
             ],
           },
         },

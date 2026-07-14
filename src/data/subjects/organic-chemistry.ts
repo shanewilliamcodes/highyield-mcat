@@ -103,12 +103,14 @@ export const organicChemistry: Subject = {
           id: "oc-lab-separation",
           name: "Separation techniques",
           summary: {
+            highYield: "Choose a method by the physical property that differs: solubility, boiling point, size, charge, or stationary-phase affinity.",
             body: [
               { type: "list", items: [
                 "Extraction — separates by solubility/polarity (and acid–base properties in aqueous vs organic layers).",
                 "Distillation — separates by boiling point.",
                 "Chromatography — separates by affinity for stationary vs mobile phase (TLC: more polar = lower Rf).",
               ] },
+              { type: "tip", text: "In acid-base extraction, convert the desired compound into an ionic form to move it into water, then neutralize it to recover the compound." },
             ],
           },
         },

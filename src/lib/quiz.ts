@@ -35,7 +35,7 @@ export function buildDeck(questions: Question[]): Question[] {
     const entries = [...buckets.entries()].filter(([, list]) => list.length > 0);
     entries.sort((a, b) => b[1].length - a[1].length);
 
-    let pick = entries.find(([subject]) => subject !== last) ?? entries[0];
+    const pick = entries.find(([subject]) => subject !== last) ?? entries[0];
     if (!pick) break;
 
     const [subject, list] = pick;

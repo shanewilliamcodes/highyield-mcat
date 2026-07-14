@@ -85,6 +85,7 @@ export const biochemistry: Subject = {
           id: "bc-enz-regulation",
           name: "Enzyme regulation",
           summary: {
+            highYield: "Regulation changes pathway flux; identify whether control is allosteric, covalent, proteolytic, or transcriptional.",
             body: [
               { type: "list", items: [
                 "Allosteric regulation — effectors bind a non-active site to shift activity (cooperativity → sigmoidal curve).",
@@ -92,6 +93,7 @@ export const biochemistry: Subject = {
                 "Covalent modification — phosphorylation (kinases add, phosphatases remove) toggles activity.",
                 "Zymogens — inactive precursors activated by cleavage (e.g., pepsinogen → pepsin).",
               ] },
+              { type: "tip", text: "Allosteric enzymes often show sigmoidal kinetics and do not follow simple Michaelis-Menten behavior." },
             ],
           },
         },
@@ -117,8 +119,10 @@ export const biochemistry: Subject = {
           id: "bc-met-krebs",
           name: "Citric acid cycle",
           summary: {
+            highYield: "Memorize the yield per acetyl-CoA and where the cycle connects carbohydrate, fat, and amino-acid metabolism.",
             body: [
               { type: "p", text: "Pyruvate is decarboxylated to acetyl-CoA, which enters the mitochondrial matrix and the Krebs cycle. Per acetyl-CoA: 3 NADH, 1 FADH₂, 1 GTP, and 2 CO₂. Double everything per glucose." },
+              { type: "tip", text: "The cycle is amphibolic: it oxidizes fuel while also supplying intermediates for biosynthesis. Its rate falls when ATP and NADH are abundant." },
             ],
           },
         },

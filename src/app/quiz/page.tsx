@@ -39,7 +39,9 @@ export default function QuizPage() {
   // load best from localStorage
   useEffect(() => {
     const b = Number(localStorage.getItem("hy_best") ?? "0");
-    if (Number.isFinite(b)) setBest(b);
+    if (!Number.isFinite(b)) return;
+    const timer = window.setTimeout(() => setBest(b), 0);
+    return () => window.clearTimeout(timer);
   }, []);
 
   const pool = useMemo(
@@ -530,7 +532,11 @@ function GameOver({
   const submittedRef = useRef(false);
 
   useEffect(() => {
-    setName(localStorage.getItem("hy_name") ?? "");
+    const timer = window.setTimeout(
+      () => setName(localStorage.getItem("hy_name") ?? ""),
+      0,
+    );
+    return () => window.clearTimeout(timer);
   }, []);
 
   const submit = async () => {

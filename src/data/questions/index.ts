@@ -20,6 +20,7 @@ import { psychologyQuestions3 } from "./psychology-3";
 import { sociologyQuestions } from "./sociology";
 import { sociologyQuestions2 } from "./sociology-2";
 import { sociologyQuestions3 } from "./sociology-3";
+import { rapidRecallQuestions } from "./rapid-recall";
 
 export const ALL_QUESTIONS: Question[] = [
   ...biologyQuestions,
@@ -43,6 +44,7 @@ export const ALL_QUESTIONS: Question[] = [
   ...sociologyQuestions,
   ...sociologyQuestions2,
   ...sociologyQuestions3,
+  ...rapidRecallQuestions,
 ];
 
 export const QUESTION_COUNT = ALL_QUESTIONS.length;

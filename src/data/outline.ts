@@ -1,4 +1,5 @@
 import type { SubjectId } from "@/lib/types";
+import { SUBJECTS } from "@/data/subjects";
 
 /**
  * Lightweight subject → topic outline for the quiz topic picker. Kept separate
@@ -17,99 +18,23 @@ export interface OutlineSubject {
   topics: OutlineTopic[];
 }
 
-export const OUTLINE: OutlineSubject[] = [
-  {
-    id: "biology",
-    name: "Biology",
-    short: "Bio",
-    accent: "#16a34a",
-    topics: [
-      { id: "bio-cell", name: "The Cell" },
-      { id: "bio-molecular", name: "Molecular Biology" },
-      { id: "bio-genetics", name: "Genetics" },
-      { id: "bio-physiology", name: "Physiology & Systems" },
-      { id: "bio-evolution", name: "Evolution & Populations" },
-    ],
-  },
-  {
-    id: "biochemistry",
-    name: "Biochemistry",
-    short: "Biochem",
-    accent: "#0ea5e9",
-    topics: [
-      { id: "bc-aa", name: "Amino Acids & Proteins" },
-      { id: "bc-enzymes", name: "Enzymes" },
-      { id: "bc-metabolism", name: "Metabolism" },
-      { id: "bc-biomol", name: "Biomolecules" },
-    ],
-  },
-  {
-    id: "general-chemistry",
-    name: "General Chemistry",
-    short: "Gen Chem",
-    accent: "#f97316",
-    topics: [
-      { id: "gc-atomic", name: "Atomic Structure & Trends" },
-      { id: "gc-bonding", name: "Bonding & IMFs" },
-      { id: "gc-thermo", name: "Thermodynamics" },
-      { id: "gc-kinetics-eq", name: "Kinetics & Equilibrium" },
-      { id: "gc-acidbase", name: "Acids & Bases" },
-      { id: "gc-electro", name: "Electrochemistry" },
-      { id: "gc-gases", name: "Gases" },
-      { id: "gc-solutions", name: "Solutions & Solubility" },
-    ],
-  },
-  {
-    id: "organic-chemistry",
-    name: "Organic Chemistry",
-    short: "Orgo",
-    accent: "#e11d48",
-    topics: [
-      { id: "oc-fundamentals", name: "Structure & Stereochemistry" },
-      { id: "oc-groups", name: "Functional Groups & Reactions" },
-      { id: "oc-lab", name: "Separations & Spectroscopy" },
-    ],
-  },
-  {
-    id: "physics",
-    name: "Physics",
-    short: "Physics",
-    accent: "#6366f1",
-    topics: [
-      { id: "ph-mechanics", name: "Mechanics" },
-      { id: "ph-fluids", name: "Fluids" },
-      { id: "ph-electricity", name: "Electricity & Magnetism" },
-      { id: "ph-waves", name: "Waves, Sound & Optics" },
-      { id: "ph-thermo", name: "Thermodynamics" },
-    ],
-  },
-  {
-    id: "psychology",
-    name: "Psychology",
-    short: "Psych",
-    accent: "#a855f7",
-    topics: [
-      { id: "psy-sensation", name: "Sensation & Perception" },
-      { id: "psy-learning", name: "Learning & Memory" },
-      { id: "psy-cognition", name: "Cognition & Consciousness" },
-      { id: "psy-development", name: "Development & Motivation" },
-      { id: "psy-disorders", name: "Psychological Disorders" },
-      { id: "psy-biological", name: "Biological Bases of Behavior" },
-    ],
-  },
-  {
-    id: "sociology",
-    name: "Sociology",
-    short: "Soc",
-    accent: "#0d9488",
-    topics: [
-      { id: "soc-theory", name: "Theoretical Frameworks" },
-      { id: "soc-institutions", name: "Social Institutions" },
-      { id: "soc-stratification", name: "Social Inequality" },
-      { id: "soc-demography", name: "Demographics & Change" },
-    ],
-  },
-];
+const SHORT: Record<SubjectId, string> = {
+  biology: "Bio",
+  biochemistry: "Biochem",
+  "general-chemistry": "Gen Chem",
+  "organic-chemistry": "Orgo",
+  physics: "Physics",
+  psychology: "Psych",
+  sociology: "Soc",
+};
+
+export const OUTLINE: OutlineSubject[] = SUBJECTS.map((subject) => ({
+  id: subject.id,
+  name: subject.name,
+  short: SHORT[subject.id],
+  accent: subject.accent,
+  topics: subject.topics.map(({ id, name }) => ({ id, name })),
+}));
 
 export const ALL_TOPIC_IDS: string[] = OUTLINE.flatMap((s) =>
   s.topics.map((t) => t.id),

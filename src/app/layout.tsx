@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import "./globals.css";
 import { SiteNav } from "@/components/SiteNav";
+import Link from "next/link";
 
 const geist = Geist({
   variable: "--font-geist-sans",
@@ -29,6 +30,9 @@ export default function RootLayout({
             textbooks) and are meant to reinforce — not replace — full study
             resources. Not affiliated with the AAMC.
           </p>
+          <Link href="/sources" style={{ color: "var(--brand)", fontWeight: 600 }}>
+            Sources & methodology
+          </Link>
         </footer>
       </body>
     </html>
