@@ -21,6 +21,12 @@ export default function LearnIndex() {
         </p>
       </div>
 
+      <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap", margin: "-12px 0 28px" }}>
+        <Link href="/search" className="btn btn-ghost">Search summaries</Link>
+        <Link href="/reference" className="btn btn-ghost">Quick-reference sheets</Link>
+        <Link href="/bookmarks" className="btn btn-ghost">Bookmarks</Link>
+      </div>
+
       <div
         style={{
           display: "grid",

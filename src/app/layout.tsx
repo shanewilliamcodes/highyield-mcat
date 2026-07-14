@@ -3,6 +3,7 @@ import { Geist } from "next/font/google";
 import "./globals.css";
 import { SiteNav } from "@/components/SiteNav";
 import Link from "next/link";
+import { AuthProvider } from "@/components/AuthProvider";
 
 const geist = Geist({
   variable: "--font-geist-sans",
@@ -21,9 +22,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={geist.variable}>
-        <SiteNav />
-        <main>{children}</main>
-        <footer className="container-page" style={{ padding: "48px 20px", color: "var(--ink-faint)", fontSize: 13 }}>
+        <AuthProvider>
+          <SiteNav />
+          <main>{children}</main>
+          <footer className="container-page" style={{ padding: "48px 20px", color: "var(--ink-faint)", fontSize: 13 }}>
           <p style={{ maxWidth: 620, lineHeight: 1.6 }}>
             HighYield is a free study aid. Summaries are condensed from openly
             available concepts (Khan Academy, AAMC content outline, and standard
@@ -33,7 +35,8 @@ export default function RootLayout({
           <Link href="/sources" style={{ color: "var(--brand)", fontWeight: 600 }}>
             Sources & methodology
           </Link>
-        </footer>
+          </footer>
+        </AuthProvider>
       </body>
     </html>
   );

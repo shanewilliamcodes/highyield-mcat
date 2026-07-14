@@ -10,6 +10,8 @@ import {
   ALL_TOPIC_IDS,
   SUBJECT_ACCENT,
 } from "@/data/outline";
+import { recordAttempt } from "@/lib/progress";
+import { QuestionReportButton } from "@/components/QuestionReportButton";
 
 const TOPIC_NAME: Record<string, string> = Object.fromEntries(
   OUTLINE.flatMap((s) => s.topics.map((t) => [t.id, t.name] as const)),
@@ -33,6 +35,8 @@ export default function QuizPage() {
   const [streak, setStreak] = useState(0);
   const [best, setBest] = useState(0);
   const [runFullPool, setRunFullPool] = useState(true);
+  const shownAt = useRef(0);
+  const runId = useRef("");
 
   const isFullPool = selected.size === ALL_TOPIC_IDS.length;
 
@@ -58,6 +62,8 @@ export default function QuizPage() {
     setAnswered(false);
     setPicked(null);
     setRunFullPool(isFullPool);
+    runId.current = `quiz-${Date.now()}`;
+    shownAt.current = window.performance.now();
     setPhase("playing");
   }, [pool, isFullPool]);
 
@@ -66,6 +72,7 @@ export default function QuizPage() {
       if (!current || answered) return;
       setPicked(choice);
       setAnswered(true);
+      void recordAttempt(current, choice === current.answer, window.performance.now() - shownAt.current, "quiz", runId.current);
       if (choice === current.answer) {
         setStreak((s) => {
           const ns = s + 1;
@@ -91,6 +98,7 @@ export default function QuizPage() {
     setCurrent(deck.next());
     setAnswered(false);
     setPicked(null);
+    shownAt.current = window.performance.now();
   }, [current, deck, picked]);
 
   // keyboard controls
@@ -493,6 +501,7 @@ function PlayScreen({
             <p style={{ margin: 0, lineHeight: 1.6, color: "var(--ink-soft)", fontSize: 15 }}>
               {q.explanation}
             </p>
+            <div style={{ marginTop: 12 }}><QuestionReportButton questionId={q.id} /></div>
           </div>
         )}
       </div>

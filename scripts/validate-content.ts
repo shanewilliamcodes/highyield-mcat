@@ -1,5 +1,7 @@
 import { ALL_QUESTIONS } from "../src/data/questions";
+import { PASSAGES } from "../src/data/passages";
 import { SUBJECTS } from "../src/data/subjects";
+import { getDailyChallenge } from "../src/lib/daily";
 
 const failures: string[] = [];
 const fail = (message: string) => failures.push(message);
@@ -50,6 +52,33 @@ for (const question of ALL_QUESTIONS) {
   if (question.explanation.length < 35) fail(`${question.id}: explanation is too short`);
 }
 
+const passageQuestions = PASSAGES.flatMap((passage) => passage.questions);
+for (const id of duplicateValues(PASSAGES.map((passage) => passage.id))) fail(`Duplicate passage id: ${id}`);
+for (const id of duplicateValues([...ALL_QUESTIONS, ...passageQuestions].map((question) => question.id))) {
+  fail(`Duplicate question id across quiz and passage banks: ${id}`);
+}
+for (const passage of PASSAGES) {
+  if (passage.context.join(" ").length < 80) fail(`${passage.id}: passage context is too short`);
+  if (passage.questions.length < 4) fail(`${passage.id}: expected at least 4 linked questions`);
+  if (!passage.questions.some((question) => question.answer) || !passage.questions.some((question) => !question.answer)) {
+    fail(`${passage.id}: answers are not balanced across true and false`);
+  }
+  for (const question of passage.questions) {
+    const topic = topicMap.get(question.topicId);
+    const subtopic = subtopicMap.get(question.subtopicId);
+    if (!topic) fail(`${question.id}: unknown passage topic ${question.topicId}`);
+    else if (topic.subject.id !== question.subject) fail(`${question.id}: passage topic belongs to ${topic.subject.id}, not ${question.subject}`);
+    if (!subtopic) fail(`${question.id}: unknown passage subtopic ${question.subtopicId}`);
+    else if (subtopic.topic.id !== question.topicId) fail(`${question.id}: passage subtopic does not belong to topic ${question.topicId}`);
+    if (question.explanation.length < 35) fail(`${question.id}: passage explanation is too short`);
+  }
+}
+
+const daily = getDailyChallenge("2026-07-14");
+if (daily.length !== 20) fail(`Expected 20 daily challenge questions; found ${daily.length}.`);
+if (new Set(daily.map((question) => question.id)).size !== daily.length) fail("Daily challenge contains duplicate questions.");
+if (new Set(daily.map((question) => question.subject)).size !== SUBJECTS.length) fail("Daily challenge does not cover every subject.");
+
 for (const subject of SUBJECTS) {
   const subjectQuestions = ALL_QUESTIONS.filter((q) => q.subject === subject.id);
   if (subjectQuestions.length < 100) fail(`${subject.name}: only ${subjectQuestions.length} questions`);
@@ -77,7 +106,7 @@ if (failures.length) {
 }
 
 console.log(
-  `Validated ${ALL_QUESTIONS.length} questions across ${SUBJECTS.length} subjects, ` +
+  `Validated ${ALL_QUESTIONS.length} quiz questions and ${passageQuestions.length} passage questions across ${SUBJECTS.length} subjects, ` +
     `${topicMap.size} topics, and ${subtopicMap.size} summarized subtopics. ` +
     `True/false split: ${trueCount}/${ALL_QUESTIONS.length - trueCount}.`,
 );

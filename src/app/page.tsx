@@ -47,6 +47,24 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="container-page" style={{ paddingBlock: 24 }}>
+        <h2 style={{ fontSize: 24, fontWeight: 800, textAlign: "center", margin: "0 0 18px" }}>Choose your study mode</h2>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(190px, 1fr))", gap: 12 }}>
+          {[
+            { href: "/daily", title: "Daily challenge", detail: "20 balanced questions" },
+            { href: "/review", title: "Adaptive review", detail: "Due and weak topics" },
+            { href: "/passages", title: "Science passages", detail: "Apply concepts to data" },
+            { href: "/progress", title: "Progress dashboard", detail: "Mastery and trends" },
+            { href: "/reference", title: "Quick reference", detail: "Equations and contrasts" },
+          ].map((mode) => (
+            <Link key={mode.href} href={mode.href} className="card" style={{ padding: 18 }}>
+              <strong style={{ display: "block", marginBottom: 5 }}>{mode.title}</strong>
+              <span style={{ color: "var(--ink-faint)", fontSize: 13 }}>{mode.detail}</span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
       {/* Why */}
       <section className="container-page" style={{ paddingBlock: 32 }}>
         <div

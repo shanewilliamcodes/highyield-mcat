@@ -2,15 +2,19 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useAuth } from "@/components/AuthProvider";
 
 const links = [
   { href: "/quiz", label: "Quiz" },
   { href: "/learn", label: "Learn" },
-  { href: "/leaderboard", label: "Leaderboard" },
+  { href: "/progress", label: "Progress" },
+  { href: "/daily", label: "Daily", optional: true },
+  { href: "/leaderboard", label: "Leaders", optional: true },
 ];
 
 export function SiteNav() {
   const pathname = usePathname();
+  const { user, profile } = useAuth();
   return (
     <header
       style={{
@@ -31,14 +35,25 @@ export function SiteNav() {
           height: 64,
         }}
       >
-        <Link href="/" style={{ display: "flex", alignItems: "center", gap: 10, fontWeight: 800, letterSpacing: "-0.02em", fontSize: 19 }}>
+        <Link
+          href="/"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 10,
+            fontWeight: 800,
+            letterSpacing: "-0.02em",
+            fontSize: 19,
+          }}
+        >
           <span
             aria-hidden
             style={{
               width: 30,
               height: 30,
               borderRadius: 9,
-              background: "linear-gradient(135deg, var(--brand), var(--brand-2))",
+              background:
+                "linear-gradient(135deg, var(--brand), var(--brand-2))",
               display: "grid",
               placeItems: "center",
               color: "white",
@@ -48,16 +63,20 @@ export function SiteNav() {
           >
             ⚡
           </span>
-          High<span style={{ color: "var(--brand)" }}>Yield</span>
+          <span className="site-brand-word">
+            High<span style={{ color: "var(--brand)" }}>Yield</span>
+          </span>
         </Link>
 
         <nav style={{ display: "flex", alignItems: "center", gap: 4 }}>
           {links.map((l) => {
-            const active = pathname === l.href || pathname.startsWith(l.href + "/");
+            const active =
+              pathname === l.href || pathname.startsWith(l.href + "/");
             return (
               <Link
                 key={l.href}
                 href={l.href}
+                className={l.optional ? "nav-optional" : undefined}
                 style={{
                   padding: "8px 14px",
                   borderRadius: 999,
@@ -71,6 +90,32 @@ export function SiteNav() {
               </Link>
             );
           })}
+          <Link
+            href="/account"
+            aria-label={user ? "Account" : "Sign in"}
+            title={user ? (profile?.display_name ?? "Account") : "Sign in"}
+            style={{
+              width: 36,
+              height: 36,
+              display: "grid",
+              placeItems: "center",
+              borderRadius: 999,
+              marginLeft: 4,
+              fontWeight: 800,
+              background:
+                pathname === "/account" ? "var(--brand)" : "var(--bg-soft)",
+              color: pathname === "/account" ? "white" : "var(--ink-soft)",
+              border: "1px solid var(--border)",
+            }}
+          >
+            {user
+              ? (
+                  profile?.display_name?.[0] ??
+                  user.email?.[0] ??
+                  "A"
+                ).toUpperCase()
+              : "↪"}
+          </Link>
         </nav>
       </div>
     </header>

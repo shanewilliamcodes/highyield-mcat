@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SUBJECTS, getSubject, getTopic } from "@/data/subjects";
 import { SummaryView } from "@/components/SummaryView";
+import { BookmarkButton } from "@/components/BookmarkButton";
 
 export function generateStaticParams() {
   return SUBJECTS.flatMap((s) =>
@@ -39,6 +40,7 @@ export default async function TopicPage({
             <h3 style={{ fontSize: 19, fontWeight: 700, letterSpacing: "-0.01em", margin: "0 0 14px", display: "flex", alignItems: "center", gap: 8 }}>
               <span style={{ width: 8, height: 8, borderRadius: 999, background: subject.accent, display: "inline-block" }} />
               {st.name}
+              <BookmarkButton kind="subtopic" itemId={st.id} />
             </h3>
             {st.summary ? (
               <SummaryView summary={st.summary} accent={subject.accent} />
