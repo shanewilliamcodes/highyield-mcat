@@ -34,6 +34,18 @@ export function getSubject(id: string): Subject | undefined {
   return SUBJECTS.find((s) => s.id === id);
 }
 
+export function subjectMark(id: string): string {
+  return ({
+    biology: "BI",
+    biochemistry: "BC",
+    "general-chemistry": "GC",
+    "organic-chemistry": "OC",
+    physics: "PH",
+    psychology: "PS",
+    sociology: "SO",
+  } as Record<string, string>)[id] ?? id.slice(0, 2).toUpperCase();
+}
+
 export function getTopic(subjectId: string, topicId: string): Topic | undefined {
   return getSubject(subjectId)?.topics.find((t) => t.id === topicId);
 }

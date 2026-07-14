@@ -43,8 +43,13 @@ export default function QuizPage() {
   // load best from localStorage
   useEffect(() => {
     const b = Number(localStorage.getItem("hy_best") ?? "0");
-    if (!Number.isFinite(b)) return;
-    const timer = window.setTimeout(() => setBest(b), 0);
+    const requestedTopic = new URLSearchParams(window.location.search).get("topic");
+    const timer = window.setTimeout(() => {
+      if (Number.isFinite(b)) setBest(b);
+      if (requestedTopic && ALL_TOPIC_IDS.includes(requestedTopic)) {
+        setSelected(new Set([requestedTopic]));
+      }
+    }, 0);
     return () => window.clearTimeout(timer);
   }, []);
 
